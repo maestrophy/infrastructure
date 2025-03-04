@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_loadbalancer
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - infra
+
+  smtp:
+    image: mailhog/mailhog
+    container_name: smtp_server
+    ports:
+      - "1025:1025"  # SMTP Server
+      - "8025:8025"  # Web UI (optional)
+    networks:
+      - infra
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: unless-stopped
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - infra
+
+  openvpn:
+    image: kylemanna/openvpn
+    container_name: openvpn
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "1194:1194/udp"
+    volumes:
+      - ./openvpn-data:/etc/openvpn
+    environment:
+      - "OVPN_SERVER_URL=udp://your.public.ip.address"
+    networks:
+      - infra
+
+networks:
+  infra:
+    driver: bridge
