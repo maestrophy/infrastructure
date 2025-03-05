@@ -22,14 +22,19 @@ services:
       - infra
 
   portainer:
-    image: portainer/portainer-ce
+    image: portainer/portainer-ce:latest
     container_name: portainer
     restart: unless-stopped
-    command: -H unix:///var/run/docker.sock
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "9000:9000"
+      - "8000:8000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
     networks:
-      - infra
+      - vpn_only
 
   openvpn:
     image: kylemanna/openvpn
@@ -45,6 +50,12 @@ services:
     networks:
       - infra
 
+  volumes:
+    portainer_data:
+
 networks:
   infra:
+    driver: bridge
+  vpn_only:
+    name: vpn_network
     driver: bridge
