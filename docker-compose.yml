@@ -50,8 +50,8 @@ services:
     networks:
       - infra
 
-  volumes:
-    portainer_data:
+volumes:
+  portainer_data:
 
 networks:
   infra:
