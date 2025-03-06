@@ -35,6 +35,7 @@ services:
       - portainer_data:/data
     networks:
       - vpn_only
+      - infra
 
   openvpn:
     image: kylemanna/openvpn
