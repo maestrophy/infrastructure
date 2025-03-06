@@ -9,6 +9,7 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx_configs:/etc/nginx/conf.d:ro
     networks:
       - infra
 
@@ -35,20 +36,6 @@ services:
       - portainer_data:/data
     networks:
       - vpn_only
-      - infra
-
-  openvpn:
-    image: kylemanna/openvpn
-    container_name: openvpn
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - "1194:1194/udp"
-    volumes:
-      - ./openvpn-data:/etc/openvpn
-    environment:
-      - "OVPN_SERVER_URL=udp://your.public.ip.address"
-    networks:
       - infra
 
 volumes:
