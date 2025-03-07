@@ -35,7 +35,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     networks:
-      - vpn_only
       - infra
 
 volumes:
@@ -43,7 +42,4 @@ volumes:
 
 networks:
   infra:
-    driver: bridge
-  vpn_only:
-    name: vpn_network
     driver: bridge
