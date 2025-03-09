@@ -15,6 +15,17 @@ services:
     networks:
       - infra
 
+  nginx_http:
+    image: nginx:latest
+    container_name: nginx_http_server
+    ports:
+      - "8080:80"  # Exposing the HTTP server on port 8080
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro  # Serve static files from ./html
+      - ./gear.svg:/usr/share/nginx/gear.svg:ro
+    networks:
+      - infra
+
   smtp:
     image: mailhog/mailhog
     container_name: smtp_server
