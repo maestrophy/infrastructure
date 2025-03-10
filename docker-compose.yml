@@ -3,10 +3,8 @@ version: '3'
 services:
   nginx_vpn:
     image: nginx:latest
-    container_name: nginx_loadbalancer
-    ports:
-      - "80:80"
-      - "443:443"
+    container_name: nginx_vpn
+    network_mode: "host"
     volumes:
       - ./nginx_vpn.conf:/etc/nginx/nginx.conf:ro
       - ./nginx_configs/vpn:/etc/nginx/conf.d:ro
@@ -17,7 +15,7 @@ services:
 
     nginx_public:
       image: nginx:latest
-      container_name: nginx_public
+      container_name: nginx_loadbalancer
       ports:
         - "80:80"
         - "443:443"
