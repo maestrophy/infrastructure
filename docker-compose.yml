@@ -13,17 +13,17 @@ services:
     networks:
       - infra
 
-    nginx_public:
-      image: nginx:latest
-      container_name: nginx_loadbalancer
-      ports:
-        - "80:80"
-        - "443:443"
-      volumes:
-        - ./nginx.conf:/etc/nginx/nginx_public.conf:ro
-        - ./nginx_configs/public:/etc/nginx/conf.d:ro
-      networks:
-        - infra
+  nginx_public:
+    image: nginx:latest
+    container_name: nginx_loadbalancer
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx_public.conf:ro
+      - ./nginx_configs/public:/etc/nginx/conf.d:ro
+    networks:
+      - infra
 
   nginx_http:
     image: nginx:latest
