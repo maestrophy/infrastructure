@@ -10,8 +10,6 @@ services:
       - ./nginx_configs/vpn:/etc/nginx/conf.d:ro
     extra_hosts:
       - "portainer.rem:10.0.0.2"
-    networks:
-      - infra
 
   nginx_public:
     image: nginx:latest
