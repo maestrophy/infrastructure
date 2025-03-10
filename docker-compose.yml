@@ -17,7 +17,7 @@ services:
 
     nginx_public:
       image: nginx:latest
-      container_name: nginx_loadbalancer
+      container_name: nginx_public
       ports:
         - "80:80"
         - "443:443"
