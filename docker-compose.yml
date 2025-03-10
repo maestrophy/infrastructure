@@ -15,7 +15,7 @@ services:
     image: nginx:latest
     container_name: nginx_loadbalancer
     ports:
-      - "80:80"
+      - "109.122.217.193:80:80"
       - "443:443"
     volumes:
       - ./nginx_public.conf:/etc/nginx/nginx_public.conf:ro
